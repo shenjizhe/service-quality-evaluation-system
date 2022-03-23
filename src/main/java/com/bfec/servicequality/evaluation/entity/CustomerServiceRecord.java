@@ -23,6 +23,9 @@ package com.bfec.servicequality.evaluation.entity;
 
 import javax.persistence.*;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.bfec.servicequality.config.RequestKey;
+import com.bfec.servicequality.evaluation.controller.QiyuPushCrmInfoController;
 import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -58,6 +61,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`event_type`")
     @ApiModelProperty(value = "事件类型", required = true, dataType = "Integer", example = "0")
+    @JSONField(name = RequestKey.EVENT_TYPE)
     private Integer eventType;
 
     /**
@@ -66,6 +70,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`session_id`")
     @ApiModelProperty(value = "会话ID", required = true, dataType = "Long", example = "0")
+    //TODO: JSON序列化没写完
     private Long sessionId;
 
     /**
