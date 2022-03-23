@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2021-2099 the original author or authors.
+  ~
+  ~ @File: CustomerServiceRecordMapper.xml
+  ~ @Author: JasonShen
+  ~ @Date: 2021-09-13 09:26:53
+  ~ @Email: thirdlucky@126.com
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bfec.servicequality.evaluation.mapper.CustomerServiceRecordMapper">
+    <resultMap id="BaseResultMap" type="com.bfec.servicequality.evaluation.entity.CustomerServiceRecord">
+        <!--@thirdlucky.code-factory generated on 2022-03-23 13:41:10.-->
+        <!--@Table component-->
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="event_type" jdbcType="INTEGER" property="eventType" />
+        <result column="session_id" jdbcType="BIGINT" property="sessionId" />
+        <result column="create_time" jdbcType="TIME" property="createTime" />
+        <result column="connection_begin_time" jdbcType="TIME" property="connectionBeginTime" />
+        <result column="connetion_end_time" jdbcType="TIME" property="connetionEndTime" />
+        <result column="from" jdbcType="VARCHAR" property="from" />
+        <result column="to" jdbcType="VARCHAR" property="to" />
+        <result column="user" jdbcType="VARCHAR" property="user" />
+        <result column="category" jdbcType="VARCHAR" property="category" />
+        <result column="staff_id" jdbcType="INTEGER" property="staffId" />
+        <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="duration" jdbcType="VARCHAR" property="duration" />
+        <result column="evaluation" jdbcType="VARCHAR" property="evaluation" />
+        <result column="record_url" jdbcType="VARCHAR" property="recordUrl" />
+        <result column="mobile_area" jdbcType="VARCHAR" property="mobileArea" />
+        <result column="wait_duration" jdbcType="VARCHAR" property="waitDuration" />
+        <result column="ring_ruration" jdbcType="VARCHAR" property="ringRuration" />
+        <result column="sessionId_from" jdbcType="BIGINT" property="sessionidFrom" />
+        <result column="day" jdbcType="DATE" property="day" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@thirdlucky.code-factory generated on 2022-03-23 13:41:10.-->
+        id, event_type, session_id, create_time, connection_begin_time, connetion_end_time, from, to, user, category, staff_id, staff_name, status, duration, evaluation, record_url, mobile_area, wait_duration, ring_ruration, sessionId_from, day
+    </sql>
+</mapper>

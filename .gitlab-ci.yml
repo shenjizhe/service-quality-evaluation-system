@@ -1,0 +1,53 @@
+stages:
+    - get_code
+    - mvn_code
+    - deploy_code
+# 拉取代码
+get_code:
+    variables:
+        path: "/usr/local/services/gitroot/"
+        fpath: "/usr/local/services/gitroot/service_quanlity-evalution-system/"
+    stage: get_code
+    script:
+        - if [ ! -d "$path" ];then
+        - mkdir "$path"
+        - fi
+        - cd "$path"
+        - if [ ! -d "$fpath" ];then
+        - git clone 
+        - cd "$fpath"
+        - else
+        - cd "$fpath"
+        - git pull origin master
+        - fi
+# 编译代码
+mvn_code:
+    variables:
+        path: "/usr/local/services/gitroot/"
+        fpath: "/usr/local/services/gitroot/service_quanlity-evalution-system/"
+    stage: mvn_code
+    script:
+        - cd "$fpath"
+        - mvn clean package
+# 部署代码
+deploy_code:
+    variables:
+        fpath: "/usr/local/services/gitroot/service_quanlity-evalution-system/"
+        tpath: "/usr/local/services//service_quanlity-evalution-system/"
+        app: service_quanlity-evalution-system
+        ip: 172.17.14.179
+    stage: mvn_code
+    script:
+        - ssh root@${ip}  << EOF
+        - if [ ! -d "tpath" ];then
+        - mkdir ${tpath}
+        - fi
+        - EOF
+        - cd "$fpath"
+        - scp ./target/${app}.jar root@${ip}:${tpath}${app}.jar
+        - scp ${app} root@${ip}:${tpath}${app}
+        - ssh root@${ip}  << EOF
+        - cd ${tpath}
+        - chmod 777 ${app}
+        - ./${app} restart
+        - EOF

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2021-2099 the original author or authors.
+  ~
+  ~ @File: KeywordMapMapper.xml
+  ~ @Author: JasonShen
+  ~ @Date: 2021-09-13 09:26:53
+  ~ @Email: thirdlucky@126.com
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bfec.servicequality.evaluation.mapper.KeywordMapMapper">
+    <resultMap id="BaseResultMap" type="com.bfec.servicequality.evaluation.entity.KeywordMap">
+        <!--@thirdlucky.code-factory generated on 2022-03-23 13:41:10.-->
+        <!--@Table component-->
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="keyword" jdbcType="VARCHAR" property="keyword" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="create_time" jdbcType="TIME" property="createTime" />
+        <result column="update_time" jdbcType="TIME" property="updateTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@thirdlucky.code-factory generated on 2022-03-23 13:41:10.-->
+        id, keyword, type, create_time, update_time
+    </sql>
+</mapper>
