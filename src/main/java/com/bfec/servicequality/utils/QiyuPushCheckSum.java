@@ -22,6 +22,9 @@
 
 package com.bfec.servicequality.utils;
 
+import cn.hutool.crypto.digest.DigestUtil;
+import io.undertow.security.idm.DigestAlgorithm;
+
 import java.security.MessageDigest;
 
 /**
@@ -37,15 +40,15 @@ public class QiyuPushCheckSum {
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     /**
-     * 计算校验和
+     * 计算md5值的校验和
      *
      * @param appSecret app秘钥
-     * @param nonce json正文的MD5值
+     * @param md5 json正文的MD5值
      * @param time 推送事件（NTP同步，有效期是5分钟）
      * @return 校验和
      */
-    public static String encode(String appSecret, String nonce, String time) {
-        String content = appSecret + nonce + time;
+    public static String encode(String appSecret, String md5, String time) {
+        String content = appSecret + md5 + time;
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("sha1");
             messageDigest.update(content.getBytes());
@@ -69,5 +72,18 @@ public class QiyuPushCheckSum {
             buf.append(HEX_DIGITS[bytes[j] & 0x0f]);
         }
         return buf.toString();
+    }
+
+    /**
+     * 计算原文的校验和
+     *
+     * @param appSecret app秘钥
+     * @param text 要加密的数据原文
+     * @param time 推送事件（NTP同步，有效期是5分钟）
+     * @return 校验和
+     */
+    public static String checksum(String appSecret, String text, String time) {
+        String md5 = DigestUtil.md5Hex(text);
+        return encode(appSecret,md5,time);
     }
 }

@@ -48,6 +48,7 @@
         <json.annotations.version>2.9.7</json.annotations.version>
         <swagger.version>3.0.0</swagger.version>
         <knife4j-version>3.0.3</knife4j-version>
+        <hutool.version>5.7.22</hutool.version>
     </properties>
 
     <dependencies>
@@ -75,13 +76,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-
-        <!--Swagger3-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.springfox</groupId>-->
-        <!--            <artifactId>springfox-boot-starter</artifactId>-->
-        <!--            <version>${swagger.version}</version>-->
-        <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-spring-boot-starter -->
         <dependency>
@@ -147,6 +141,12 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
     </dependencies>
 
