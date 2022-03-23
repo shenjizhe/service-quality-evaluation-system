@@ -23,7 +23,6 @@
 package com.bfec.servicequality.evaluation.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.bfec.servicequality.config.Config;
 import com.bfec.servicequality.evaluation.entity.CustomerServiceRecord;
 import com.bfec.servicequality.evaluation.service.CustomerServiceRecordService;
@@ -36,6 +35,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import static com.bfec.servicequality.enums.EventType.RecordAfterHungUp;
+
 /**
  * 客户服务信息 控制器
  *
@@ -47,35 +48,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 @Api(tags = "客户服务信息")
 public class QiyuPushCrmInfoController {
-    /**
-     * 事件类型
-     */
-    public enum EventType {
-        GetInfo(1, "获取用户信息"),
-        IVRCheck(2, "IVR校验"),
-        IVRInterface(3, "自定义IVR接口"),
-        PlayContent(4, "播放内容接口"),
-        RecordAfterHungUp(5, "挂断时同步通话记录"),
-        RecordInfo(6, "同步电话服务记录字段"),
-        RecordCallIn(7, "接起时同步通话记录"),
-        ;
-
-        EventType(int value, String name) {
-            this.value = value;
-            this.name = name;
-        }
-
-        /**
-         * 类型值
-         */
-        Integer value;
-
-        /**
-         * 名称
-         */
-        String name;
-    }
-
     /**
      * 七鱼推送接口结果错误枚举
      */
@@ -183,12 +155,14 @@ public class QiyuPushCrmInfoController {
         }
 
         // 2. save custom service call info to db
-        CustomerServiceRecord record = JSON.parseObject(json,CustomerServiceRecord.class);
+        CustomerServiceRecord record = JSON.parseObject(json, CustomerServiceRecord.class);
         customerServiceRecordService.insert(record);
 
-        if(!record.getEventType().equals(EventType.RecordAfterHungUp.value)){
+        if (!RecordAfterHungUp.check(record.getEventType())) {
             return new Result(ErrorCode.Success);
         }
+
+
 
         // 3. upload sound record to the STT service
         return null;
