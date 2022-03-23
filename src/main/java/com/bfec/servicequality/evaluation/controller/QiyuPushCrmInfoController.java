@@ -158,13 +158,14 @@ public class QiyuPushCrmInfoController {
         CustomerServiceRecord record = JSON.parseObject(json, CustomerServiceRecord.class);
         customerServiceRecordService.insert(record);
 
+        // 3. check event type (it with be deal when its event type equals 5)
         if (!RecordAfterHungUp.check(record.getEventType())) {
             return new Result(ErrorCode.Success);
         }
 
 
-
-        // 3. upload sound record to the STT service
+        // TODO: whether it need be asynchronized?
+        // 4. upload sound record to the STT service
         return null;
     }
 
