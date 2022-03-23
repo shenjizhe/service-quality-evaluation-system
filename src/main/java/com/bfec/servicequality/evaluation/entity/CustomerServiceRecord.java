@@ -70,7 +70,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`session_id`")
     @ApiModelProperty(value = "会话ID", required = true, dataType = "Long", example = "0")
-    //TODO: JSON序列化没写完
+    @JSONField(name = RequestKey.SESSION_ID)
     private Long sessionId;
 
     /**
@@ -79,6 +79,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`create_time`")
     @ApiModelProperty(value = "创建时间", required = true, dataType = "Date", example = "2022-03-23 13:41:10")
+    @JSONField(name = RequestKey.CREATE_TIME)
     private Date createTime;
 
     /**
@@ -87,6 +88,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`connection_begin_time`")
     @ApiModelProperty(value = "连接开始时间", required = true, dataType = "Date", example = "2022-03-23 13:41:10")
+    @JSONField(name = RequestKey.CONNECTION_BEGINE_TIME)
     private Date connectionBeginTime;
 
     /**
@@ -95,6 +97,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`connetion_end_time`")
     @ApiModelProperty(value = "连接结束时间", required = true, dataType = "Date", example = "2022-03-23 13:41:10")
+    @JSONField(name = RequestKey.CONNECTION_END_TIME)
     private Date connetionEndTime;
 
     /**
@@ -103,6 +106,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`from`")
     @ApiModelProperty(value = "呼叫网", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.FROM)
     private String from;
 
     /**
@@ -111,6 +115,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`to`")
     @ApiModelProperty(value = "接收方", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.TO)
     private String to;
 
     /**
@@ -119,6 +124,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`user`")
     @ApiModelProperty(value = "客户名称", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.USER)
     private String user;
 
     /**
@@ -127,6 +133,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`category`")
     @ApiModelProperty(value = "资讯分类", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.CATEGORY)
     private String category;
 
     /**
@@ -135,6 +142,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`staff_id`")
     @ApiModelProperty(value = "员工id", required = true, dataType = "Integer", example = "0")
+    @JSONField(name = RequestKey.STAFF_ID)
     private Integer staffId;
 
     /**
@@ -143,6 +151,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`staff_name`")
     @ApiModelProperty(value = "员工姓名", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.STAFF_NAME)
     private String staffName;
 
     /**
@@ -151,6 +160,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`status`")
     @ApiModelProperty(value = "会话状态", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.STATUS)
     private String status;
 
     /**
@@ -159,6 +169,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`duration`")
     @ApiModelProperty(value = "通话时长", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.DURATION)
     private String duration;
 
     /**
@@ -167,6 +178,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`evaluation`")
     @ApiModelProperty(value = "满意度", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.EVALUATION)
     private String evaluation;
 
     /**
@@ -175,6 +187,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`record_url`")
     @ApiModelProperty(value = "通话录音文件地址", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.RECORD_URL)
     private String recordUrl;
 
     /**
@@ -183,6 +196,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`mobile_area`")
     @ApiModelProperty(value = "号码归属地", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.MOBILE_AREA)
     private String mobileArea;
 
     /**
@@ -191,6 +205,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`wait_duration`")
     @ApiModelProperty(value = "排队等待时长", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.WAIT_DURATION)
     private String waitDuration;
 
     /**
@@ -199,6 +214,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`ring_ruration`")
     @ApiModelProperty(value = "振铃时长", required = true, dataType = "String", example = "test")
+    @JSONField(name = RequestKey.RING_DURATION)
     private String ringRuration;
 
     /**
@@ -207,6 +223,7 @@ public class CustomerServiceRecord {
      */
     @Column(name = "`sessionId_from`")
     @ApiModelProperty(value = "转接的上一通会话ID", required = true, dataType = "Long", example = "0")
+    @JSONField(name = RequestKey.SESSION_ID_FROM)
     private Long sessionidFrom;
 
     /**
