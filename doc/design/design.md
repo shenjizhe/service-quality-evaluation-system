@@ -80,7 +80,59 @@
 ### 1.七鱼客服回调接口 web_hook API
 提供给七鱼客服“同步通话记录”功能的回调接口， 用于获取七鱼客户服务结束时推送的信息，其中包括了通话录音文件地址
 
-- 请求参数：
+- 接口定义：
+
+```aidl
+@RequestMapping(value = "/crminfo", method = RequestMethod.POST)
+@ResponseBody
+public String pushCustomeServiceCallRecord(
+        @RequestParam(value = "checksum", required = true) String checksum,
+        @RequestParam(value = "time", required = true) String time,
+        @RequestBody(required = true) String json
+) {
+    // 此处省略业务代码
+}
+```
+- 参数说明
+
+参数 	|参数说明
+---|---
+appKey 	|你的企业的appKey (仅在您的服务器向七鱼服务器发送数据时需要，七鱼服务器向您的服务器发送数据时无此参数)
+time 	|当前 UTC 时间戳，从 1970 年 1 月 1 日 0 点 0 分 0 秒开始到现在的秒数
+checksum 	|SHA1(appSecret + md5 + time), 三个参数拼接的字符串，进行SHA1哈希计算，转化成16进制字符(String，小写)
+eventType 	|七鱼服务器向开发者服务器推送事件时的事件类型。（开发者服务器向七鱼服务器发送请求时无此参数）
+json| 推送的信息，eventtype 类型为5,是需要处理的通话结束事件
+
+- body定义[json]
+
+  名称|类型|说明|示例
+  ---|---|---|---
+  eventtype|Integer|事件类型|5
+  sessionid|Long|会话ID|216629286
+  direction|String|呼叫方向|呼入
+  createtime|Date|创建时间|1511832411968
+  connectionbeginetime|Date|连接开始时间|1511832413992
+  connectionendtime|Date|连接结束时间|1511832432183
+  from|String|呼叫方|15854582215
+  to|String|接收方|05718690766
+  user|String|客户名称|张三
+  category|String|资讯分类|售后问题/退货
+  staffid|Integer|员工id|642656
+  staffname|String|员工姓名|丽娜
+  status|String|会话状态|接通
+  visittimes|Integer|重复咨询次数|1
+  duration|String|通话时长|10:15
+  evaluation|String|满意度|满意
+  record_url|String|通话录音文件地址|https://ysf.nosdn.127.net/9f670ff01dae290ad4bf83401d291069.wav
+  overflowFrom|String|溢出来源|
+  shuntGroupName|String|分流客服组|
+  ivrPath|String|ivr路径|
+  mobileArea|String|号码归属地|
+  waitDuration|String|排队等待时长|5分10秒
+  ringDuration|String|振铃时长|1小时10分
+  sessionIdFrom|Long|转接的上一通会话ID|216629286
+
+- 请求样例
 
 ```aidl
 curl -X POST \
@@ -112,36 +164,6 @@ curl -X POST \
     "ringDuration":"1小时10分",   //振铃时长
     "sessionIdFrom": 216629286,   //转接至该会话的上一通会话id
   }'
-
 ```
 
-- 参数说明
-
-  名称|类型|说明|示例
-  ---|---|---|---
-  eventtype|Integer|事件类型|5
-  sessionid|Long|会话ID|216629286
-  direction|String|呼叫方向|呼入
-  createtime|Date|创建时间|1511832411968
-  connectionbeginetime|Date|连接开始时间|1511832413992
-  connectionendtime|Date|连接结束时间|1511832432183
-  from|String|呼叫方|15854582215
-  to|String|接收方|05718690766
-  user|String|客户名称|张三
-  category|String|资讯分类|售后问题/退货
-  staffid|Integer|员工id|642656
-  staffname|String|员工姓名|丽娜
-  status|String|会话状态|接通
-  visittimes|Integer|重复咨询次数|1
-  duration|String|通话时长|10:15
-  evaluation|String|满意度|满意
-  record_url|String|通话录音文件地址|https://ysf.nosdn.127.net/9f670ff01dae290ad4bf83401d291069.wav
-  overflowFrom|String|溢出来源|
-  shuntGroupName|String|分流客服组|
-  ivrPath|String|ivr路径|
-  mobileArea|String|号码归属地|
-  waitDuration|String|排队等待时长|5分10秒
-  ringDuration|String|振铃时长|1小时10分
-  sessionIdFrom|Long|转接的上一通会话ID|216629286
-
-### 2.
+### 2. 
