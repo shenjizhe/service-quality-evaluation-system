@@ -103,6 +103,36 @@ checksum 	|SHA1(appSecret + md5 + time), 三个参数拼接的字符串，进行
 eventType 	|七鱼服务器向开发者服务器推送事件时的事件类型。（开发者服务器向七鱼服务器发送请求时无此参数）
 json| 推送的信息，eventtype 类型为5,是需要处理的通话结束事件
 
+- checksum校验算法
+
+```aidl
+ public class QiyuPushCheckSum {
+
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+    public static String encode(String appSecret, String nonce, String time) {
+        String content = appSecret + nonce + time;
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("sha1");
+            messageDigest.update(content.getBytes());
+            return getFormattedText(messageDigest.digest());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static String getFormattedText(byte[] bytes) {
+        int len = bytes.length;
+        StringBuilder buf = new StringBuilder(len * 2);
+        for (int j = 0; j < len; j++) {
+            buf.append(HEX_DIGITS[(bytes[j] >> 4) & 0x0f]);
+            buf.append(HEX_DIGITS[bytes[j] & 0x0f]);
+        }
+        return buf.toString();
+    }
+}
+```
+
 - body定义[json]
 
   名称|类型|说明|示例
