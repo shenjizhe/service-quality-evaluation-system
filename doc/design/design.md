@@ -77,9 +77,72 @@
 
 ## 接口设计
 
-### 1.七鱼客服完成 web_hook API
+### 1.七鱼客服回调接口 web_hook API
 
-[post] http://<domain_name>/api/ivr/crminfo?checksum=XXXXXXXXXXXXXXX
+- 请求参数：
+```aidl
+curl -X POST \
+  'http://www.xxx.com/api/ivr/crminfo?checksum=f570a5eb049eb803b086e45829b07e48&time=1511832531' \
+  -H 'content-type: application/json;charset=utf-8' \
+  -d '{
+    "eventtype": 5,
+    "sessionid": 216629286,
+    "direction": "呼入",
+    "createtime": 1511832411968,
+    "connectionbeginetime": 1511832413992,
+    "connectionendtime": 1511832432183,
+    "from": "15854582215",
+    "to": "05718690766",
+    "user": "客户名称",
+    "category": "售后问题/退货", //咨询分类
+    "staffid": 642656,
+    "staffname": "丽娜",
+    "status": "接通", //会话状态
+    "visittimes": 1, //重复咨询次数
+    "duration": "10:15", //通话时长
+    "evaluation": "满意", //满意度评价
+    "recordurl": "https://ysf.nosdn.127.net/9f670ff01dae290ad4bf83401d291069.wav", //通话录音文件地址
+    "overflowFrom": "溢出来源",
+    "shuntGroupName"："分流客服组",
+    "ivrPath":"ivr路径",
+    "mobileArea":"号码归属地",
+    "waitDuration":"5分10秒",  //排队等待时长
+    "ringDuration":"1小时10分",   //振铃时长
+    "sessionIdFrom": 216629286,   //转接至该会话的上一通会话id
+  }'
+
+```
+
+- 参数说明
+
+名称|类型|说明|示例
+---|---|---|---
+eventtype|Integer|事件类型|5
+sessionid|Long|会话ID|216629286
+direction|String|呼叫方向|呼入
+createtime|Date|创建时间|1511832411968
+connectionbeginetime|Date|连接开始时间|1511832413992
+connectionendtime|Date|连接结束时间|1511832432183
+from|String|呼叫方|15854582215
+to|String|接收方|05718690766
+user|String|客户名称|张三
+category|String|资讯分类|售后问题/退货
+staffid|Integer|员工id|642656
+staffname|String|员工姓名|丽娜
+status|String|会话状态|接通
+visittimes|Integer|重复咨询次数|1
+duration|String|通话时长|10:15
+evaluation|String|满意度|满意
+record_url|String|通话录音文件地址|https://ysf.nosdn.127.net/9f670ff01dae290ad4bf83401d291069.wav
+overflowFrom|String|溢出来源|
+shuntGroupName|String|分流客服组|
+ivrPath|String|ivr路径|
+mobileArea|String|号码归属地|
+waitDuration|String|排队等待时长|5分10秒
+ringDuration|String|振铃时长|1小时10分
+sessionIdFrom|Long|转接的上一通会话ID|216629286
+
+
 
 
 
