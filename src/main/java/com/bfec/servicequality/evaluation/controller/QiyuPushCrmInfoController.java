@@ -22,6 +22,8 @@
 
 package com.bfec.servicequality.evaluation.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bfec.servicequality.config.Config;
 import com.bfec.servicequality.utils.QiyuPushCheckSum;
 import io.swagger.annotations.Api;
@@ -43,10 +45,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 @Api(tags = "客户服务信息")
 public class QiyuPushCrmInfoController {
-
-    @Autowired
-    private Config config;
-
     /**
      * 七鱼推送接口结果错误枚举
      */
@@ -58,15 +56,15 @@ public class QiyuPushCrmInfoController {
         /**
          * 校验和错误
          */
-        CheckSumFail(14002,"校验和错误"),
+        CheckSumFail(14002, "校验和错误"),
         /**
          * 时间不正确
          */
-        TimeFail(14003,"时间错误"),
+        TimeFail(14003, "时间错误"),
         /**
          * 内容格式错误
          */
-        ContentFormatFail(14004,"内容格式校验错误"),
+        ContentFormatFail(14004, "内容格式校验错误"),
         /**
          * 服务器内部错误
          */
@@ -76,8 +74,8 @@ public class QiyuPushCrmInfoController {
         /**
          * 七鱼错误枚举
          *
-         * @param code
-         * @param message
+         * @param code    错误码
+         * @param message 错误消息
          */
         ErrorCode(Integer code, String message) {
             this.code = code;
@@ -100,13 +98,13 @@ public class QiyuPushCrmInfoController {
      */
     @Data
     @AllArgsConstructor
-    public final class Result{
+    public final class Result {
         /**
          * 七鱼推送结果构造器
          *
          * @param code 结果错误枚举
          */
-        public Result(ErrorCode code){
+        public Result(ErrorCode code) {
             this.code = code.code;
             this.message = code.message;
         }
@@ -130,6 +128,142 @@ public class QiyuPushCrmInfoController {
     }
 
     /**
+     * 请求键名称
+     */
+    public final static class RequestKey {
+        /**
+         * 七鱼推送事件类型
+         * <p>
+         * 1 - 获取用户信息
+         * 2 - VR校验
+         * 3 - 自定义IVR接口
+         * 4 - 播放内容接口
+         * 5 - 挂断时同步通话记录
+         * 6 - 同步电话服务记录字段
+         * 7 - 接起时同步通话记录
+         */
+        public static String EVENT_TYPE = "eventtype";
+
+        /*
+         * 	会话ID
+         */
+        public static String SESSION_ID = "sessionid";
+
+        /*
+         * 	呼叫方向
+         */
+        public static String DIRECTION = "direction";
+
+        /*
+         * 	创建时间
+         */
+        public static String CREATE_TIME = "createtime";
+
+        /*
+         * 	连接开始时间
+         */
+        public static String CONNECTION_BEGINE_TIME = "connectionbeginetime";
+
+        /*
+         * 	连接结束时间
+         */
+        public static String CONNECTION_END_TIME = "connectionendtime";
+
+        /*
+         * 	呼叫方
+         */
+        public static String FROM = "from";
+
+        /*
+         * 	接收方
+         */
+        public static String TO = "to";
+
+        /*
+         * 	客户名称
+         */
+        public static String USER = "user";
+
+        /*
+         * 	资讯分类
+         */
+        public static String CATEGORY = "category";
+
+        /*
+         * 	员工id
+         */
+        public static String STAFF_ID = "staffid";
+
+        /*
+         * 	员工姓名
+         */
+        public static String STAFF_NAME = "staffname";
+
+        /*
+         * 	会话状态
+         */
+        public static String STATUS = "status";
+
+        /*
+         * 	重复咨询次数
+         */
+        public static String VISIT_TIMES = "visittimes";
+
+        /*
+         * 	通话时长
+         */
+        public static String DURATION = "duration";
+
+        /*
+         * 	满意度
+         */
+        public static String EVALUATION = "evaluation";
+
+        /*
+         * 	通话录音文件地址
+         */
+        public static String RECORD_URL = "record_url";
+
+        /*
+         * 	溢出来源
+         */
+        public static String OVERFLOW_FROM = "overflowFrom";
+
+        /*
+         * 	分流客服组
+         */
+        public static String SHUNT_GROUP_NAME = "shuntGroupName";
+
+        /*
+         * 	ivr路径
+         */
+        public static String IVR_PATH = "ivrPath";
+
+        /*
+         * 	号码归属地
+         */
+        public static String MOBILE_AREA = "mobileArea";
+
+        /*
+         * 	排队等待时长
+         */
+        public static String WAIT_DURATION = "waitDuration";
+
+        /*
+         * 	振铃时长
+         */
+        public static String RING_DURATION = "ringDuration";
+
+        /*
+         * 	转接的上一通会话ID
+         */
+        public static String SESSION_ID_FROM = "sessionIdFrom";
+    }
+
+    @Autowired
+    private Config config;
+
+    /**
      * 七鱼客服推送信息回调接口
      */
     @ApiOperation(value = "七鱼客服推送信息回调接口", notes = "")
@@ -146,6 +280,9 @@ public class QiyuPushCrmInfoController {
         if (!sum.equals(checksum)) {
             return new Result(ErrorCode.CheckSumFail);
         }
+
+        JSONObject obj = (JSONObject) JSON.parse(json);
+        obj.getInteger()
 
         // 2. save custom service call info to db
 
